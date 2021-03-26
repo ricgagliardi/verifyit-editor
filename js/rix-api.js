@@ -156,7 +156,8 @@ function populateChildren() {
 //   return {rel, mode, key, isNew}
 // }
 function getParams() {
-  let [_,rel, mode] = location.pathname.match(/.+\/(\w+)-(\w+)\.html/)  
+  // let [_,rel, mode] = location.pathname.match(/.+\/(\w+)-(\w+)\.html/)  
+  let [_,rel, mode] = location.pathname.match(/.*\/(\w+)-(\w+)/)  
   let key = {}
   new URLSearchParams(location.hash.slice(1)).forEach( (v, k) => key[k] = `eq.${v}`)
   // console.log('rel', rel, 'mode', mode, 'key', key)
