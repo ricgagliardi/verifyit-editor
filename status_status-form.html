@@ -1,0 +1,44 @@
+<html><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+   
+  <title>Status Status Form</title>
+  <link href="./css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <form onsubmit="return false">
+    <div data-section="form-content"><fieldset data-type="fieldset">
+    <legend>Status Status</legend>
+  <div data-type="fkey-fld" data-parent="status.name">
+    <label for="from">From</label><br>
+    <div class="button-group">
+
+      <select id="from" name="from" value="" style="width:100%">
+      </select>
+      <a data-nav-parent="" href="#" class="button">↪</a>
+    </div>
+  </div><div data-type="fkey-fld" data-parent="status.name">
+    <label for="to">To</label><br>
+    <div class="button-group">
+
+      <select id="to" name="to" value="" style="width:100%">
+      </select>
+      <a data-nav-parent="" href="#" class="button">↪</a>
+    </div>
+  </div></fieldset></div>
+    <div data-section="children">
+      
+    </div>
+    <button type="submit" data-action="saveForm" disabled="disabled">Save changes</button>
+  </form>
+  <div data-include=""></div>
+  <script>
+    var query = {"select":["*"]}
+  </script>
+  <script src="./js/iziToast.min.js" type="text/javascript"></script>
+  <script src="./ckeditor/ckeditor.js" defer=""></script>
+  <script src="./js/rix-api.js" defer=""></script>
+
+
+</body></html>

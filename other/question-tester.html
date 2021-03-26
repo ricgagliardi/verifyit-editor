@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+   <!-- <link rel="shortcut icon" href="/retail/images/favicon.ico"> -->
+  <title>Question Tester - VerifyIt</title>
+  <link href="../output/css/style.css" rel="stylesheet" type="text/css">
+  <!-- <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.5/build/pure-min.css" integrity="sha384-LTIDeidl25h2dPxrB2Ekgc9c7sEC3CWGM6HeFmuDNUjX76Ert4Z4IY714dhZHPLd" crossorigin="anonymous"> -->
+  <!-- <script src="https://cdn.ckeditor.com/4.16.0/full-all/ckeditor.js"></script> -->
+  <script src="../output/ckeditor/ckeditor.js"></script>
+
+  <style>
+    .choice {width:50vw}
+    .wrong-choice {text-decoration: line-through}
+    main {
+      width: 61vw;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <textarea name="raw-content">
+    </textarea>
+    <p><button id="btn-parse-content">Test</button></p>
+  </section>
+  
+  <pre id="log-output"></pre>
+  <hr/>
+  <div style="color:red">
+    <pre id="log-warn"></pre>
+  </div>
+  <hr/>
+  <main></main>
+
+  <input type="checkbox" id="followup-control" class="modal">
+  <div>
+    <div class="card">
+      <label for="followup-control" class="modal-close" ></label>
+      <h3 class="section">Correct!</h3>
+      <p id="followup" class="section"></p>
+    </div>
+  </div>
+
+  <input type="checkbox" id="hint-control" class="modal">
+  <div>
+    <div class="card">
+      <label for="hint-control" class="modal-close" ></label>
+      <h3 class="section">Hint:</h3>
+      <p id="hint" class="section"></p>
+    </div>
+  </div>
+
+  <section>
+    <button id="btn-submit" class="inverse" style="visibility:hidden; float:right">Submit Question</button>
+  </section>
+
+  <script>
+    function log(...msgs) {
+      // console.log(msgs)
+      let con = document.querySelector('#log-output')
+      if (msgs.length == 0) con.innerHTML = ''
+      else con.innerHTML += msgs.join(' ') + '\n'
+    }
+    function warn(...msgs) {
+      // console.log(msgs)
+      let con = document.querySelector('#log-warn')
+      if (msgs.length == 0) con.innerHTML = ''
+      else con.innerHTML += msgs.join(' ') + '\n'
+    }
+    function main() {
+      // function reportErrors(rep) {
+      //   let errors = []
+      //   const parser = new DOMParser()
+      //   Object.keys(rep).forEach(clause => {
+      //     let elem = parser.parseFromString(rep[clause], 'text/html')
+      //     Array.from(elem.querySelectorAll('strong > em')).forEach( n => {
+      //       try {
+      //         console.log('reportErrors', n, n.parentElement.parentElement.nextElementSibling.innerText)
+      //         n.parentElement.parentElement.nextElementSibling.innerText.match(/^\s*\[(.+)\]/)[1]
+      //       }
+      //       catch (e) {
+
+      //         errors.push(`Cannot parse notation for ${n.textContent}: ${e.message}`)
+      //       }
+      //     })
+      //   })
+          
+      //   if (errors.length > 0) {
+      //     log('ERRORS:')
+      //     errors.forEach(m => log('    ', m))
+      //   }
+      //   return errors.length > 0
+      // }
+      function parseContent() {
+        function grabNodes(name) {
+          let foundName = false
+          let result = Array.from(content.children).filter( node => {
+            if (foundName && node.nodeName == 'H1') foundName = false
+            if (node.nodeName == 'H1' && node.innerHTML.includes(name)) foundName = true
+            // console.log(name, node.nodeName, foundName)
+            return foundName
+          })
+          if (result.length < 2) {
+            warn('Could not parse', name)
+            return null
+          }
+          return result.slice(1)
+        }
+        const parser = new DOMParser()
+        const dom = parser.parseFromString(CKEDITOR.instances['raw-content'].getData(), "text/html")
+        const content = dom.querySelector('body')
+        
+
+        console.log('parse content', content)
+        // document.getElementById('cke_raw-content').style.display = 'none'  ?? mini class hidden?
+        // document.getElementById('btn-parse-content').style.display = 'none'
+
+        rep = {
+          title: grabNodes('Title')[0].innerText,
+          author: grabNodes('Author/Date')[0].innerText.split(/\s*;\s*/)[0],
+          date: grabNodes('Author/Date')[0].innerText.split(/\s*;\s*/)[1],
+          categories: grabNodes('Categories')[0].innerText.split(/\s*;\s*/),
+          answer: Number(grabNodes('Correct Answer')[0].innerText),
+          question: grabNodes('Question Content').map( n => n.outerHTML),
+          choices: Array.from(grabNodes('Choices')[0].children).map( (node, idx) => {
+            let label = node.innerHTML
+            return `\n<button data-no="${idx+1}" class="choice">${label}</button>`
+          }),
+          followup: grabNodes('Followup').map( n => n.outerHTML),
+          hints: Array.from(grabNodes('Hints')[0].children).map( n => n.innerHTML ),
+          comments: grabNodes('Private Comments').map( n => n.outerHTML),
+        }
+        
+        log() // clears output
+        log('Title:          ', rep.title)
+        log('Author:         ', rep.author)
+        log('Date:           ', rep.date)
+        log('Categories:     ', rep.categories.join(', '))
+        log('Question paras: ', rep.question.length)
+        log('No. choices     ', rep.choices.length)
+        // rep.choices.forEach( c => log(`  ${c}`) )
+        log('Correct answer: ', rep.answer)
+        log('Followup paras: ', rep.followup.length)
+        log('No. hints       ', rep.hints.length)
+        // rep.hints.forEach( (h, i) => log(`hint ${i+1}:  ${h}`) )
+
+        
+        console.log('rep:\n', JSON.stringify(rep, null, 2))
+
+        let main = document.querySelector('main')
+        main.innerHTML = ''
+        rep.question.forEach( n => main.innerHTML += n )
+        rep.choices.forEach( n => main.innerHTML += n )
+        
+        Array.from(document.querySelectorAll('.choice')).forEach( btn => btn.onclick = respond)
+        let followup = document.querySelector('#followup')
+        followup.innerHTML = ''
+        rep.followup.forEach( n => followup.innerHTML += n )
+        prepNotations(main)
+        prepNotations(followup)
+        // Array.from(main.querySelectorAll('a')).forEach( btn => btn.onclick = hint)
+        // hints = Array.from(grabNodes('Hints')[0].children).map( n => n.innerHTML )
+        // hints.forEach( (h, i) => log(`  hint ${i+1}:  ${h}`) )
+      }
+
+      function respond(evt) {
+        evt.preventDefault()
+        let choiceNo = evt.target.dataset.no || evt.target.closest('button').dataset.no
+        console.log('respond', choiceNo, rep.answer)
+        if (choiceNo == rep.answer) {
+          document.getElementById('followup-control').checked = true
+          return
+        }
+        evt.target.classList.add('wrong-choice')
+      }
+      function prepNotations(elem) {
+        // console.log('prepNotations', elem, Array.from(elem.querySelectorAll('em')))
+        Array.from(elem.querySelectorAll('strong > em')).forEach( n => {
+          try {
+            let m = n.parentElement.parentElement.nextElementSibling.innerText.match(/^\s*\[(.+)\]/)[1]
+            n.parentElement.parentElement.nextElementSibling.innerHTML = n.parentElement.parentElement.nextElementSibling.innerHTML.replace(/^\s*\[(.+)\]/, '')
+            console.log('em', n.innerHTML, m)
+            let a = document.createElement('a')
+            a.innerHTML = n.innerHTML
+            a.href = `#${m}`
+            // a.style.color = 'blue'
+            n.parentNode.replaceChild(a, n)
+            a.onclick = hint
+            console.log('new a', a.onclick)
+          }
+          catch (e) {
+            warn(`Cannot parse notation for ${n.textContent}: ${e.message}`)
+          } 
+        })
+        // console.log(dom.outerHTML)
+        // CKEDITOR.instances['raw-content'].setData(dom.documentElement.outerHTML)
+      }
+
+      function hint(evt) {
+        evt.preventDefault()
+        let href = evt.target.href || evt.target.closest('a').href
+        let hintNo = Number(href.split('#')[1]).toString()
+        // console.log('hint', href, hintNo, location.pathname)
+        // if (!href.includes(location.pathname) && !href.includes('docs.google.com')) { //must be external link
+        if (isNaN(hintNo)) {
+          let hintElem = document.getElementById('hint')
+          hintElem.innerHTML = `This will be a source description from the database.<br/> It may include <a href="http://rixfix.com" target="_blank">links</a>.`
+          prepNotations(hintElem)
+          document.getElementById('hint-control').checked = true
+        }
+        else {
+          // console.log('showing hint', hintNo, rep.hints[hintNo-1])
+          let hintElem = document.getElementById('hint')
+          hintElem.innerHTML = rep.hints[hintNo-1]
+          prepNotations(hintElem)
+          document.getElementById('hint-control').checked = true
+        }
+        return false
+      }
+
+      var rep = {} //, hints
+      // let quill = new Quill('#raw-content', { theme: 'snow' })
+      CKEDITOR.replace( 'raw-content', {
+        allowedContent: false,
+        // contentsCss: ['./css/mini-default.min.css', './css/ck-style.css']
+      })
+      document.getElementById('btn-parse-content').onclick = parseContent
+
+
+      // document.getElementById('file-input').onchange = async evt => {
+      //   let file = evt.target.files[0]
+      //   console.log('file', file)
+      //   log('Title:', file.name.slice(0,file.name.lastIndexOf('.')))
+      //   let zip = await JSZip.loadAsync(file) 
+      //   console.log('zip', zip)
+      //   let htmlName = Object.keys(zip.files).filter( n => !n.includes('/') && n.endsWith('.html') )[0]
+      //   console.log('htmlName', htmlName)
+      //   let html = await zip.file(htmlName).async("string")
+
+      //   const parser = new DOMParser()
+      //   const dom = parser.parseFromString(html, "text/html")
+      //   console.log(dom)
+      //   let sheet = document.createElement('style')
+      //   sheet.innerHTML = dom.querySelector('head > style').innerHTML
+      //   document.head.appendChild(sheet)
+
+      //   let body = dom.querySelector('body')
+
+      //   Array.from(body.querySelectorAll('a')).forEach( a => {
+      //     if (!a.href.includes(location.pathname)) { // only external links
+      //       const url = new URL(a.href)
+      //       a.href = url.searchParams.get('q')
+      //     }
+      //   })
+      //   // log('Title:', grabNodes(body, 'Question Title')[0].firstChild.innerHTML)
+      //   log('Author:', grabNodes(body, 'Author')[0].firstChild.innerHTML)
+      //   log('Categories:', grabNodes(body, 'Categories')[0].firstChild.innerHTML)
+      //   // #contents > div > p:nth-child(9) > span
+      //   answer = grabNodes(body, 'Correct Answer')[0].firstChild.innerText
+      //   log('Correct answer:', answer)
+
+      //   let main = document.querySelector('main')
+      //   main.className = body.className
+      //   grabNodes(body, 'Question Content').forEach( n => main.appendChild(n) )
+      //   Array.from(grabNodes(body, 'Choices')[0].children).forEach( (node, idx) => {
+      //     let label = node.querySelector('span').innerHTML
+      //     main.innerHTML += `\n<button data-no="${idx+1}" class="choice">${label}</button>`
+      //   })
+      //   Array.from(document.querySelectorAll('.choice')).forEach( btn => btn.onclick = respond)
+      //   let followup = document.querySelector('#followup')
+      //   grabNodes(body, 'Followup').forEach( n => followup.appendChild(n) )
+      //   Array.from(document.querySelectorAll('a')).forEach( btn => btn.onclick = hint)
+      //   hints = Array.from(grabNodes(body, 'Hints')[0].children)
+      //     .map( node => node.querySelector('span').innerHTML )
+      //   hints.forEach( (h, i) => log(`  hint ${i+1}:  ${h}`) )
+      //   // .catch( err => log('Failed to fetch page: ', err) )
+
+      //   let imageNames = Object.keys(zip.files).filter( n => n.startsWith('images/'))
+      //   imageNames.forEach( async n => {
+      //     let img = await zip.file(n).async('blob')
+      //     let urlCreator = window.URL || window.webkitURL;
+      //     let imageUrl = urlCreator.createObjectURL(img);
+      //     let elem = document.querySelector(`img[src="${n}"]`)
+      //     let buf = new Image()
+      //     buf.onload = () => {
+      //       let canvas = document.createElement('canvas')
+      //       let ctbuf = canvas.getContext('2d')
+      //       canvas.width = buf.width
+      //       canvas.height = buf.height
+      //       ctbuf.drawImage(buf, 0, 0)
+      //       elem.src = canvas.toDataURL('image/png')
+      //     }
+      //     buf.src = imageUrl
+      //   })
+      //  document.getElementById('btn-submit').style.visibility = 'visible'
+      // }
+    }
+
+    window.onload = main
+  </script>
+</body>
+</html>
