@@ -9,7 +9,7 @@ function today() {
 async function request(relName, query, data) {
   const anonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNDQ0MjY4OSwiZXhwIjoxOTMwMDE4Njg5fQ.TBULgqU-TgI1gL0iScxM0k4B1xTBnQ_q0XLpdu7qnAs'
   const dbId = 'cqxvknmoofzuhxbonmoj'
-  const method = query ? (data ? 'PATCH': 'GET') : 'POST'
+  const method = query ? (data ? (data == 'DELETE' ? 'DELETE' : 'PATCH') : 'GET') : 'POST'
   let queryString = ''
   if (query) {
     if (!query.select) query.select = ['*']
@@ -23,7 +23,7 @@ async function request(relName, query, data) {
     if (filter.length > 0) queryString += `&${filter.join('&')}`
   }
   console.log('queryString', queryString)  
-
+  document.body.style.cursor = 'wait'
   const resp = await fetch(`https://${dbId}.supabase.co/rest/v1/${relName}${queryString}`, {
     method: method,
     cache: 'no-cache',
@@ -37,6 +37,7 @@ async function request(relName, query, data) {
   })
 
   const json = await resp.json()
+  document.body.style.cursor = 'auto'
   if (!resp.ok) {
     if (resp.status && resp.status == 404) alert('Could not find record to update. You may not be authorized.')
     else if (resp.status && resp.status == 403) alert('You are not authorized.')
@@ -181,6 +182,7 @@ async function populateList() {
       })
       parent.appendChild(newRow)
     })
+    document.querySelector('span[data-rowcount').textContent = `${rows.length} rows`
   }
 
   document.querySelectorAll('td.search-col input').forEach( node => node.oninput = evt => {
@@ -196,9 +198,43 @@ async function populateList() {
     let key = Array.from(evt.target.parentElement.children)
       .filter( n => n.dataset.key )
       .map( n => encodeURIComponent(n.dataset.name) + '=' + encodeURIComponent(n.textContent) )
-      // console.log('key', rel, key)
-      location.assign(`./${rel}-form.html?#${key.join('&')}`)
+
+    // console.log('key', rel, key)
+    location.assign(`./${rel}-form.html?#${key.join('&')}`)
   }
+
+  document.querySelector('table.data-result tbody').oncontextmenu = async evt => {
+    evt.preventDefault()
+    console.log('context menu clicked', evt.target)
+    let key = {}
+    Array.from(evt.target.parentElement.children)
+      .filter( n => n.dataset.key )
+      .forEach( n => key[n.dataset.name] = n.textContent )
+
+    if (confirm(`Are you sure you want to remove "${Object.values(key).join('; ')}?`) && confirm('REALLY?')) {
+    Object.keys(key).forEach(n => key[n] = `eq.${key[n]}`)
+    console.log('delete', rel, key)
+    let result = await request(rel, key, 'DELETE')
+    console.log('delete result', result)
+    if (result.length > 0) {
+      iziToast.show({
+        title: 'Delete', 
+        message: 'Successfully removed the record.',
+        position: 'topCenter',
+        backgroundColor: 'lightgreen'
+      })
+      populateList()
+    }
+    else iziToast.show({
+      title: 'Delete', 
+      message: 'Failed to remove the record.',
+      position: 'topCenter',
+      backgroundColor: 'red'
+    })
+   }
+    // location.assign(`./${rel}-form.html?#${key.join('&')}`)
+  }
+
 
   const {rel, _, key} = getParams()
   let filter = {}

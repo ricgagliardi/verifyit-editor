@@ -34,18 +34,20 @@
   </div>
 
   <main class="box">
-    <h3 data-table-name="" style="display:inline-block;width:80%">Game List</h3>
-    <a href="./game-form.html" data-add-row="" class="button">Add New</a>
+    <h3 data-tablename="" style="display:inline-block;width:75%">Game List</h3>
+    <span data-rowcount="" style="font-size:80%">0 rows</span>
+    <a href="./game-form.html#_new" data-add-row="" class="button">Add New</a>
     <table class="data-result striped hoverable">
       <thead><tr><th>Game</th></tr><tr><td class="search-col"><input name="game" style="width:100%"></td></tr></thead>
       <tbody> <tr data-row=""><td data-name="game" data-key="true"></td></tr> </tbody>
     </table>
+    <div data-include=""></div>
   </main>
 
   <script>
     var query = {"select":["game"],"order":["game"],"limit":1000}
   </script>
-  
+  <script src="./js/iziToast.min.js" type="text/javascript"></script>
   <script src="./js/rix-api.js" defer=""></script>
 
 

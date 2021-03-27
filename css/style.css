@@ -54,13 +54,16 @@ fieldset[data-child] {
 }
 
 .box {
-  width: clamp(340px, 90%, 800px);
+  /* width: clamp(340px, 90%, 800px); */
   margin: auto;
-
+  max-height: 80%;
 }
 /* table.data-result thead tr:last-child td {
   padding: 0;
 } */
+table.data-result {
+  max-height: 80%;
+}
 
 table.data-result td.search-col {
   width:100%;

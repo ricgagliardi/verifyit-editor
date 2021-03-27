@@ -34,18 +34,20 @@
   </div>
 
   <main class="box">
-    <h3 data-table-name="" style="display:inline-block;width:80%">Question List</h3>
-    <a href="./question-form.html" data-add-row="" class="button">Add New</a>
+    <h3 data-tablename="" style="display:inline-block;width:75%">Question List</h3>
+    <span data-rowcount="" style="font-size:80%">0 rows</span>
+    <a href="./question-form.html#_new" data-add-row="" class="button">Add New</a>
     <table class="data-result striped hoverable">
       <thead><tr><th>Title</th><th>Created</th><th>Author</th><th>Status</th><th>Category</th></tr><tr><td class="search-col"><input name="title" style="width:100%"></td><td class="search-col"><input name="created" style="width:100%"></td><td class="search-col"><input name="author" style="width:100%"></td><td class="search-col"><input name="status" style="width:100%"></td><td class="search-col"><input name="category" style="width:100%"></td></tr></thead>
       <tbody> <tr data-row=""><td data-name="title" data-key="true"></td><td data-name="created"></td><td data-name="author"></td><td data-name="status"></td><td data-name="category"></td></tr> </tbody>
     </table>
+    <a href="./tester" target="_blank" class="primary button" style="float:right">Import Question</a>
   </main>
 
   <script>
     var query = {"select":["title","created","author","status","category"],"order":["title","created","author","status","category"],"limit":1000}
   </script>
-  
+  <script src="./js/iziToast.min.js" type="text/javascript"></script>
   <script src="./js/rix-api.js" defer=""></script>
 
 
