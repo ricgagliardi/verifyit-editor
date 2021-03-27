@@ -47,11 +47,11 @@ async function request(relName, query, data) {
         position: 'topCenter',
         backgroundColor: 'yellow'
       })
-      setTimeout( () => location.assign('./auth.html'), 1000 )
+      setTimeout( () => location.assign('./index.html'), 2000 )
     } 
     else alert(`ERROR: Request failed: ${json.message}`)
     console.warn('Request error:', resp, json)
-    return null
+    return []
   }
   console.log('query', query, 'returns', json)
   return json
@@ -63,12 +63,10 @@ async function populateForm() {
     console.log('about to request', curQuery)
     let rows = await request(rel, curQuery)
     console.log('rows', rows)
-    if (!rows || rows.length != 1) {
-      if (rows.length == 0) alert('No rows returned. Probably a new record. Not yet implemented.')
-      else alert('query returned more than 1 row. Only 1 is expected.')
-      return null
-    }
-    return rows[0]
+    if (rows.length == 1) return rows[0]
+    if (rows.length == 0) alert('No rows returned. Probably a new record. Not yet implemented.')
+    else alert('query returned more than 1 row. Only 1 is expected.')
+    return []
   }
   const {rel, _, key, isNew} = getParams()
   if (isNew) {
@@ -266,10 +264,11 @@ async function main() {
   if (document.forms.length > 0) {
     document.forms[0].onchange = handleFormChange
     document.forms[0].onsubmit = saveForm
+    window.onbeforeunload = () => document.querySelector('button[data-action=saveForm]').disabled ? null : ''
   }
+
   if (document.querySelector('[data-user-name') && localStorage.name)
     document.querySelector('[data-user-name').textContent = localStorage.name
-  window.onbeforeunload = () => document.querySelector('button[data-action=saveForm]').disabled ? null : ''
 
 }
 
