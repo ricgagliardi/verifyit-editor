@@ -19,13 +19,12 @@
 </li><li><a href="./designer-list.html">Designer</a>
 </li><li><a href="./editor-list.html">Editor</a>
 </li><li><a href="./game-list.html">Game</a>
-</li><li><a href="./game_plan-list.html">Game Plan</a>
-</li><li><a href="./game_plan_game_series-list.html">Game Plan Game Series</a>
-</li><li><a href="./game_plan_question-list.html">Game Plan Question</a>
-</li><li><a href="./game_series-list.html">Game Series</a>
+</li><li><a href="./game_category-list.html">Game Category</a>
+</li><li><a href="./play-list.html">Play</a>
 </li><li><a href="./player-list.html">Player</a>
 </li><li><a href="./question-list.html">Question</a>
-</li><li><a href="./response-list.html">Response</a>
+</li><li><a href="./question_category-list.html">Question Category</a>
+</li><li><a href="./question_play-list.html">Question Play</a>
 </li><li><a href="./source-list.html">Source</a>
 </li><li><a href="./status-list.html">Status</a>
 </li><li><a href="./user-list.html">User</a>
@@ -40,38 +39,29 @@
     <label for="player">Player</label><br>
     <input id="player" type="number" step="1" value="" name="player" data-key="true">
   </div><div data-type="text-fld">
-    <label for="name">Name</label><br>
-    <input id="name" type="text" value="" name="name">
-  </div><div data-type="fkey-fld" data-parent="game.game">
-    <label for="game">Game</label><br>
+    <label for="handle">Handle</label><br>
+    <input id="handle" type="text" value="" name="handle">
+  </div><div data-type="fkey-fld" data-parent="play.play">
+    <label for="play">Play</label><br>
     <div class="button-group">
 
-      <select id="game" name="game" value="" style="width:100%">
+      <select id="play" name="play" value="" style="width:100%">
       </select>
       <a data-nav-parent="" href="#" class="button">↪</a>
     </div>
+  </div><div data-type="integer-fld">
+    <label for="score">Score</label><br>
+    <input id="score" type="number" step="1" value="" name="score">
   </div></fieldset></div>
     <div data-section="children">
       
-    <fieldset data-child="game"><legend>Game</legend>
-        <ul>
-          <li data-row=""></li>
-        </ul>
-        <a href="./game-form.html#_new" data-addrow="player:game.lead" class="button" style="float:right">New Game</a>
-      
-</fieldset><fieldset data-child="response"><legend>Response</legend>
-        <ul>
-          <li data-row=""></li>
-        </ul>
-        <a href="./response-form.html#_new" data-addrow="player:response.player" class="button" style="float:right">New Response</a>
-      
-</fieldset></div>
+    </div>
     <button type="submit" data-action="saveForm" disabled="disabled">Save changes</button>
   </form>
   <div data-include=""></div>
   <script>
-    var query = {"select":["*","game(game)","response(question)"]}
-    var deflt = {"player":"''","name":"''","game":"''"}
+    var query = {"select":["*"]}
+    var deflt = {"player":"''","handle":"''","play":"''","score":"''"}
   </script>
   <script src="./js/iziToast.min.js" type="text/javascript"></script>
   <script src="./ckeditor/ckeditor.js" defer=""></script>

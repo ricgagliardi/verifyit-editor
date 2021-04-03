@@ -19,13 +19,12 @@
 </li><li><a href="./designer-list.html">Designer</a>
 </li><li><a href="./editor-list.html">Editor</a>
 </li><li><a href="./game-list.html">Game</a>
-</li><li><a href="./game_plan-list.html">Game Plan</a>
-</li><li><a href="./game_plan_game_series-list.html">Game Plan Game Series</a>
-</li><li><a href="./game_plan_question-list.html">Game Plan Question</a>
-</li><li><a href="./game_series-list.html">Game Series</a>
+</li><li><a href="./game_category-list.html">Game Category</a>
+</li><li><a href="./play-list.html">Play</a>
 </li><li><a href="./player-list.html">Player</a>
 </li><li><a href="./question-list.html">Question</a>
-</li><li><a href="./response-list.html">Response</a>
+</li><li><a href="./question_category-list.html">Question Category</a>
+</li><li><a href="./question_play-list.html">Question Play</a>
 </li><li><a href="./source-list.html">Source</a>
 </li><li><a href="./status-list.html">Status</a>
 </li><li><a href="./user-list.html">User</a>
@@ -76,28 +75,20 @@
       </select>
       <a data-nav-parent="" href="#" class="button">↪</a>
     </div>
-  </div><div data-type="fkey-fld" data-parent="category.name">
-    <label for="category">Category</label><br>
-    <div class="button-group">
-
-      <select id="category" name="category" value="" style="width:100%">
-      </select>
-      <a data-nav-parent="" href="#" class="button">↪</a>
-    </div>
   </div></fieldset></div>
     <div data-section="children">
       
-    <fieldset data-child="game_plan_question" data-ref="game_plan:game_plan.name"><legend>Game Plan</legend>
+    <fieldset data-child="question_category" data-ref="category:category.name"><legend>Category</legend>
         <ul>
           <li data-row=""></li>
         </ul>
-        <a href="./game_plan_question-form.html#_new" data-addrow="title:game_plan_question.question" class="button" style="float:right">New Game Plan Question</a>
+        <a href="./question_category-form.html#_new" data-addrow="title:question_category.question" class="button" style="float:right">New Question Category</a>
       
-</fieldset><fieldset data-child="response"><legend>Response</legend>
+</fieldset><fieldset data-child="question_play" data-ref="play:play.play"><legend>Play</legend>
         <ul>
           <li data-row=""></li>
         </ul>
-        <a href="./response-form.html#_new" data-addrow="title:response.question" class="button" style="float:right">New Response</a>
+        <a href="./question_play-form.html#_new" data-addrow="title:question_play.question" class="button" style="float:right">New Question Play</a>
       
 </fieldset></div>
     <button type="submit" data-action="saveForm" disabled="disabled">Save changes</button>
@@ -115,8 +106,8 @@
   }
 </script>
   <script>
-    var query = {"select":["*","game_plan_question(game_plan,sequence)","response(player)"]}
-    var deflt = {"title":"''","created":"today()","question_content":"''","followup":"''","choices":"''","correct_choice":"''","hints":"''","private_comments":"''","author":"''","status":"''","category":"''"}
+    var query = {"select":["*","question_category(category)","question_play(play)"]}
+    var deflt = {"title":"''","created":"today()","question_content":"''","followup":"''","choices":"''","correct_choice":"''","hints":"''","private_comments":"''","author":"''","status":"''"}
   </script>
   <script src="./js/iziToast.min.js" type="text/javascript"></script>
   <script src="./ckeditor/ckeditor.js" defer=""></script>

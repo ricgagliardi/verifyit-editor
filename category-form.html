@@ -19,13 +19,12 @@
 </li><li><a href="./designer-list.html">Designer</a>
 </li><li><a href="./editor-list.html">Editor</a>
 </li><li><a href="./game-list.html">Game</a>
-</li><li><a href="./game_plan-list.html">Game Plan</a>
-</li><li><a href="./game_plan_game_series-list.html">Game Plan Game Series</a>
-</li><li><a href="./game_plan_question-list.html">Game Plan Question</a>
-</li><li><a href="./game_series-list.html">Game Series</a>
+</li><li><a href="./game_category-list.html">Game Category</a>
+</li><li><a href="./play-list.html">Play</a>
 </li><li><a href="./player-list.html">Player</a>
 </li><li><a href="./question-list.html">Question</a>
-</li><li><a href="./response-list.html">Response</a>
+</li><li><a href="./question_category-list.html">Question Category</a>
+</li><li><a href="./question_play-list.html">Question Play</a>
 </li><li><a href="./source-list.html">Source</a>
 </li><li><a href="./status-list.html">Status</a>
 </li><li><a href="./user-list.html">User</a>
@@ -39,39 +38,34 @@
   <div data-type="text-fld">
     <label for="name">Name</label><br>
     <input id="name" type="text" value="" name="name" data-key="true">
-  </div><div data-type="fkey-fld" data-parent="category.name">
-    <label for="sub_of">Sub Of</label><br>
-    <div class="button-group">
-
-      <select id="sub_of" name="sub_of" value="" style="width:100%">
-      </select>
-      <a data-nav-parent="" href="#" class="button">↪</a>
-    </div>
   </div><div data-type="text-fld">
     <label for="image_location">Image Location</label><br>
     <input id="image_location" type="text" value="" name="image_location">
+  </div><div data-type="text-fld">
+    <label for="group">Group</label><br>
+    <input id="group" type="text" value="" name="group">
   </div></fieldset></div>
     <div data-section="children">
       
-    <fieldset data-child="category"><legend>Category</legend>
+    <fieldset data-child="game_category"><legend>Game Category</legend>
         <ul>
           <li data-row=""></li>
         </ul>
-        <a href="./category-form.html#_new" data-addrow="name:category.sub_of" class="button" style="float:right">New Category</a>
+        <a href="./game_category-form.html#_new" data-addrow="name:game_category.category" class="button" style="float:right">New Game Category</a>
       
-</fieldset><fieldset data-child="question"><legend>Question</legend>
+</fieldset><fieldset data-child="question_category" data-ref="question:question.title"><legend>Question</legend>
         <ul>
           <li data-row=""></li>
         </ul>
-        <a href="./question-form.html#_new" data-addrow="name:question.category" class="button" style="float:right">New Question</a>
+        <a href="./question_category-form.html#_new" data-addrow="name:question_category.category" class="button" style="float:right">New Question Category</a>
       
 </fieldset></div>
     <button type="submit" data-action="saveForm" disabled="disabled">Save changes</button>
   </form>
   <div data-include=""></div>
   <script>
-    var query = {"select":["*","category(name)","question(title)"]}
-    var deflt = {"name":" 'boo!'","sub_of":"''","image_location":"''"}
+    var query = {"select":["*","game_category(game)","question_category(question)"]}
+    var deflt = {"name":"''","image_location":"''","group":"''"}
   </script>
   <script src="./js/iziToast.min.js" type="text/javascript"></script>
   <script src="./ckeditor/ckeditor.js" defer=""></script>

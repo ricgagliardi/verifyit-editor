@@ -115,7 +115,7 @@ function populateChildren() {
       let btnAdd = document.querySelector(`fieldset[data-child=${rn}] a[data-addrow]`)
       let [parentFn, _, childFn] = btnAdd.dataset['addrow'].split(/:|\./)
       let key = getParams().key[parentFn].split('.')[1] //remove the eq. prefix
-      btnAdd.href += `#_new&${childFn}=${key}`
+      btnAdd.href += `&${childFn}=${key}`
 
       if (row[rn].length == 0) return
       // console.log('  child', rn, JSON.stringify(row[rn]))

@@ -19,13 +19,12 @@
 </li><li><a href="./designer-list.html">Designer</a>
 </li><li><a href="./editor-list.html">Editor</a>
 </li><li><a href="./game-list.html">Game</a>
-</li><li><a href="./game_plan-list.html">Game Plan</a>
-</li><li><a href="./game_plan_game_series-list.html">Game Plan Game Series</a>
-</li><li><a href="./game_plan_question-list.html">Game Plan Question</a>
-</li><li><a href="./game_series-list.html">Game Series</a>
+</li><li><a href="./game_category-list.html">Game Category</a>
+</li><li><a href="./play-list.html">Play</a>
 </li><li><a href="./player-list.html">Player</a>
 </li><li><a href="./question-list.html">Question</a>
-</li><li><a href="./response-list.html">Response</a>
+</li><li><a href="./question_category-list.html">Question Category</a>
+</li><li><a href="./question_play-list.html">Question Play</a>
 </li><li><a href="./source-list.html">Source</a>
 </li><li><a href="./status-list.html">Status</a>
 </li><li><a href="./user-list.html">User</a>
@@ -36,41 +35,56 @@
   <form>
     <div data-section="form-content"><fieldset data-type="fieldset">
     <legend>Game</legend>
-  <div data-type="integer-fld">
-    <label for="game">Game</label><br>
-    <input id="game" type="number" step="1" value="" name="game" data-key="true">
-  </div><div data-type="fkey-fld" data-parent="game_plan.name">
-    <label for="game_plan">Game Plan</label><br>
+  <div data-type="text-fld">
+    <label for="name">Name</label><br>
+    <input id="name" type="text" value="" name="name" data-key="true">
+  </div><div data-type="fkey-fld" data-parent="designer.name">
+    <label for="designer">Designer</label><br>
     <div class="button-group">
 
-      <select id="game_plan" name="game_plan" value="" style="width:100%">
+      <select id="designer" name="designer" value="" style="width:100%">
       </select>
       <a data-nav-parent="" href="#" class="button">↪</a>
     </div>
-  </div><div data-type="fkey-fld" data-parent="player.player">
-    <label for="lead">Lead</label><br>
+  </div><div data-type="multiline-fld">
+    <label for="description">Description</label><br>
+    <textarea id="description" name="description" style="width:100%"></textarea>
+  </div><div data-type="fkey-fld" data-parent="game.name">
+    <label for="excluded_by">Excluded By</label><br>
     <div class="button-group">
 
-      <select id="lead" name="lead" value="" style="width:100%">
+      <select id="excluded_by" name="excluded_by" value="" style="width:100%">
       </select>
       <a data-nav-parent="" href="#" class="button">↪</a>
     </div>
   </div></fieldset></div>
     <div data-section="children">
       
-    <fieldset data-child="player"><legend>Player</legend>
+    <fieldset data-child="game"><legend>Game</legend>
         <ul>
           <li data-row=""></li>
         </ul>
-        <a href="./player-form.html#_new" data-addrow="game:player.game" class="button" style="float:right">New Player</a>
+        <a href="./game-form.html#_new" data-addrow="name:game.excluded_by" class="button" style="float:right">New Game</a>
+      
+</fieldset><fieldset data-child="game_category"><legend>Game Category</legend>
+        <ul>
+          <li data-row=""></li>
+        </ul>
+        <a href="./game_category-form.html#_new" data-addrow="name:game_category.game" class="button" style="float:right">New Game Category</a>
+      
+</fieldset><fieldset data-child="play"><legend>Play</legend>
+        <ul>
+          <li data-row=""></li>
+        </ul>
+        <a href="./play-form.html#_new" data-addrow="name:play.game" class="button" style="float:right">New Play</a>
       
 </fieldset></div>
     <button type="submit" data-action="saveForm" disabled="disabled">Save changes</button>
   </form>
   <div data-include=""></div>
   <script>
-    var query = {"select":["*","player(player)"]}
-    var deflt = {"game":"''","game_plan":"''","lead":"''"}
+    var query = {"select":["*","game(name)","game_category(category)","play(play)"]}
+    var deflt = {"name":"''","designer":"''","description":"''","excluded_by":"''"}
   </script>
   <script src="./js/iziToast.min.js" type="text/javascript"></script>
   <script src="./ckeditor/ckeditor.js" defer=""></script>
