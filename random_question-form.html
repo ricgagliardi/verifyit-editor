@@ -15,7 +15,6 @@
     <div>
       <label for="drawer-control" class="drawer-close"></label>
       <ul> <li><a href="./author-list.html">Author</a>
-</li><li><a href="./category-list.html">Category</a>
 </li><li><a href="./designer-list.html">Designer</a>
 </li><li><a href="./editor-list.html">Editor</a>
 </li><li><a href="./game-list.html">Game</a>
@@ -23,7 +22,6 @@
 </li><li><a href="./play-list.html">Play</a>
 </li><li><a href="./player-list.html">Player</a>
 </li><li><a href="./question-list.html">Question</a>
-</li><li><a href="./question_category-list.html">Question Category</a>
 </li><li><a href="./question_play-list.html">Question Play</a>
 </li><li><a href="./random_question-list.html">Random Question</a>
 </li><li><a href="./source-list.html">Source</a>
@@ -36,22 +34,27 @@
   <form>
     <div data-section="form-content"><fieldset data-type="fieldset">
     <legend>Random Question</legend>
-  <div data-type="fkey-fld" data-parent="question.title">
-    <label for="question">Question</label><br>
-    <div class="button-group">
-
-      <select id="question" name="question" value="" style="width:100%" data-key="true">
-      </select>
-      <a data-nav-parent="" href="#" class="button">↪</a>
-    </div>
-  </div><div data-type="fkey-fld" data-parent="category.name">
-    <label for="category">Category</label><br>
-    <div class="button-group">
-
-      <select id="category" name="category" value="" style="width:100%" data-key="true">
-      </select>
-      <a data-nav-parent="" href="#" class="button">↪</a>
-    </div>
+  <div data-type="text-fld">
+    <label for="categories">Categories</label><br>
+    <input id="categories" type="text" value="" name="categories" data-key="true">
+  </div><div data-type="text-fld">
+    <label for="title">Title</label><br>
+    <input id="title" type="text" value="" name="title" data-key="true">
+  </div><div data-type="text-fld">
+    <label for="question_content">Question Content</label><br>
+    <input id="question_content" type="text" value="" name="question_content">
+  </div><div data-type="text-fld">
+    <label for="followup">Followup</label><br>
+    <input id="followup" type="text" value="" name="followup">
+  </div><div data-type="text-fld">
+    <label for="choices">Choices</label><br>
+    <input id="choices" type="text" value="" name="choices">
+  </div><div data-type="integer-fld">
+    <label for="correct_choice">Correct Choice</label><br>
+    <input id="correct_choice" type="number" step="1" value="" name="correct_choice">
+  </div><div data-type="text-fld">
+    <label for="hints">Hints</label><br>
+    <input id="hints" type="text" value="" name="hints">
   </div></fieldset></div>
     <div data-section="children">
       
@@ -61,7 +64,7 @@
   <div data-include=""></div>
   <script>
     var query = {"select":["*"]}
-    var deflt = {"question":"''","category":"''"}
+    var deflt = {"categories":"''","title":"''","question_content":"''","followup":"''","choices":"''","correct_choice":"''","hints":"''"}
   </script>
   <script src="./js/iziToast.min.js" type="text/javascript"></script>
   <script src="./ckeditor/ckeditor.js" defer=""></script>

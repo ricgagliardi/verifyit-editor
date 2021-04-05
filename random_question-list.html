@@ -15,7 +15,6 @@
     <div>
       <label for="drawer-control" class="drawer-close"></label>
       <ul> <li><a href="./author-list.html">Author</a>
-</li><li><a href="./category-list.html">Category</a>
 </li><li><a href="./designer-list.html">Designer</a>
 </li><li><a href="./editor-list.html">Editor</a>
 </li><li><a href="./game-list.html">Game</a>
@@ -23,7 +22,6 @@
 </li><li><a href="./play-list.html">Play</a>
 </li><li><a href="./player-list.html">Player</a>
 </li><li><a href="./question-list.html">Question</a>
-</li><li><a href="./question_category-list.html">Question Category</a>
 </li><li><a href="./question_play-list.html">Question Play</a>
 </li><li><a href="./random_question-list.html">Random Question</a>
 </li><li><a href="./source-list.html">Source</a>
@@ -38,14 +36,14 @@
     <span data-rowcount="" style="font-size:80%">0 rows</span>
     <a href="./random_question-form.html#_new" data-add-row="" class="button">Add New</a>
     <table class="data-result striped hoverable">
-      <thead><tr><th>Question</th><th>Category</th></tr><tr><td class="search-col"><input name="question" style="width:100%"></td><td class="search-col"><input name="category" style="width:100%"></td></tr></thead>
-      <tbody> <tr data-row=""><td data-name="question" data-key="true"></td><td data-name="category" data-key="true"></td></tr> </tbody>
+      <thead><tr><th>Categories</th><th>Title</th></tr><tr><td class="search-col"><input name="categories" style="width:100%"></td><td class="search-col"><input name="title" style="width:100%"></td></tr></thead>
+      <tbody> <tr data-row=""><td data-name="categories" data-key="true"></td><td data-name="title" data-key="true"></td></tr> </tbody>
     </table>
     <div data-include=""></div>
   </main>
 
   <script>
-    var query = {"select":["question","category"],"order":["question","category"],"limit":1000}
+    var query = {"select":["categories","title"],"order":["categories","title"],"limit":1000}
   </script>
   <script src="./js/iziToast.min.js" type="text/javascript"></script>
   <script src="./js/rix-api.js" defer=""></script>

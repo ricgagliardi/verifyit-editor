@@ -23,6 +23,7 @@
 </li><li><a href="./player-list.html">Player</a>
 </li><li><a href="./question-list.html">Question</a>
 </li><li><a href="./question_play-list.html">Question Play</a>
+</li><li><a href="./random_question-list.html">Random Question</a>
 </li><li><a href="./source-list.html">Source</a>
 </li><li><a href="./status-list.html">Status</a>
 </li><li><a href="./user-list.html">User</a>
@@ -37,22 +38,22 @@
     <label for="game">Game</label><br>
     <div class="button-group">
 
-      <select id="game" name="game" value="" style="width:100%">
+      <select id="game" name="game" value="" style="width:100%" data-key="true">
       </select>
       <a data-nav-parent="" href="#" class="button">↪</a>
     </div>
+  </div><div data-type="text-fld">
+    <label for="categories">Categories</label><br>
+    <input id="categories" type="text" value="" name="categories" data-key="true">
   </div><div data-type="integer-fld">
     <label for="no_questions">No Questions</label><br>
     <input id="no_questions" type="number" step="1" value="" name="no_questions">
   </div><div data-type="text-fld">
-    <label for="categories">Categories</label><br>
-    <input id="categories" type="text" value="" name="categories" data-key="true">
-  </div><div data-type="image-fld">
     <label for="flash_image">Flash Image</label><br>
-    <img id="flash_image" src="#" name="flash_image" height="200" ,="" width="200">
-  </div><div data-type="image-fld">
+    <input id="flash_image" type="text" value="" name="flash_image">
+  </div><div data-type="text-fld">
     <label for="background_image">Background Image</label><br>
-    <img id="background_image" src="#" name="background_image" height="200" ,="" width="200">
+    <input id="background_image" type="text" value="" name="background_image">
   </div></fieldset></div>
     <div data-section="children">
       
@@ -62,7 +63,7 @@
   <div data-include=""></div>
   <script>
     var query = {"select":["*"]}
-    var deflt = {"game":"''","no_questions":"''","categories":"''","flash_image":"''","background_image":"''"}
+    var deflt = {"game":"''","categories":"''","no_questions":"''","flash_image":"''","background_image":"''"}
   </script>
   <script src="./js/iziToast.min.js" type="text/javascript"></script>
   <script src="./ckeditor/ckeditor.js" defer=""></script>

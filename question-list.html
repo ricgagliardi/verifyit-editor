@@ -23,6 +23,7 @@
 </li><li><a href="./player-list.html">Player</a>
 </li><li><a href="./question-list.html">Question</a>
 </li><li><a href="./question_play-list.html">Question Play</a>
+</li><li><a href="./random_question-list.html">Random Question</a>
 </li><li><a href="./source-list.html">Source</a>
 </li><li><a href="./status-list.html">Status</a>
 </li><li><a href="./user-list.html">User</a>
@@ -35,14 +36,14 @@
     <span data-rowcount="" style="font-size:80%">0 rows</span>
     <a href="./question-form.html#_new" data-add-row="" class="button">Add New</a>
     <table class="data-result striped hoverable">
-      <thead><tr><th>Title</th><th>Created</th><th>Author</th><th>Status</th></tr><tr><td class="search-col"><input name="title" style="width:100%"></td><td class="search-col"><input name="created" style="width:100%"></td><td class="search-col"><input name="author" style="width:100%"></td><td class="search-col"><input name="status" style="width:100%"></td></tr></thead>
-      <tbody> <tr data-row=""><td data-name="title" data-key="true"></td><td data-name="created"></td><td data-name="author"></td><td data-name="status"></td></tr> </tbody>
+      <thead><tr><th>Title</th><th>Author</th><th>Status</th><th>Categories</th></tr><tr><td class="search-col"><input name="title" style="width:100%"></td><td class="search-col"><input name="author" style="width:100%"></td><td class="search-col"><input name="status" style="width:100%"></td><td class="search-col"><input name="categories" style="width:100%"></td></tr></thead>
+      <tbody> <tr data-row=""><td data-name="title" data-key="true"></td><td data-name="author"></td><td data-name="status"></td><td data-name="categories"></td></tr> </tbody>
     </table>
     <a href="./tester" target="_blank" class="primary button" style="float:right">Import Question</a>
   </main>
 
   <script>
-    var query = {"select":["title","created","author","status"],"order":["title","created","author","status"],"limit":1000}
+    var query = {"select":["title","author","status","categories"],"order":["title","author","status","categories"],"limit":1000}
   </script>
   <script src="./js/iziToast.min.js" type="text/javascript"></script>
   <script src="./js/rix-api.js" defer=""></script>
