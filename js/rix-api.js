@@ -85,7 +85,7 @@ async function populateForm() {
   Array.from(document.forms[0].querySelectorAll('[id]')).forEach( node => {
     // console.log('  node', node.nodeName, node.id, row[node.id])
     if (!row.hasOwnProperty(node.id)) return
-    node.value = row[node.id]
+    node.value = row[node.id] == null ? '' : row[node.id]
     if (
       node.nodeName == 'SELECT' && 
       node.closest('div[data-type]') && 
@@ -260,9 +260,9 @@ async function saveForm(evt) {
   let elems = Array.from(document.forms[0].elements)
   elems.forEach( n => {
     if (!n.name || typeof n.value != 'string' ) return // non-fields
-    if (!n.dataset.key && n.value == (row[n.name]?.toString() || '')) return // compare strings only
+    if (!isNew && !n.dataset.key && n.value == (row[n.name]?.toString() || '')) return // compare strings only
     
-    data[n.name] = n.value
+    data[n.name] = n.value == '' ? null : n.value
     statement[n.name] = `eq.${row[n.name]}`
   })
   if (isNew) statement = null

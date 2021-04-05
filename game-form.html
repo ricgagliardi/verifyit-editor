@@ -15,7 +15,6 @@
     <div>
       <label for="drawer-control" class="drawer-close"></label>
       <ul> <li><a href="./author-list.html">Author</a>
-</li><li><a href="./category-list.html">Category</a>
 </li><li><a href="./designer-list.html">Designer</a>
 </li><li><a href="./editor-list.html">Editor</a>
 </li><li><a href="./game-list.html">Game</a>
@@ -23,7 +22,6 @@
 </li><li><a href="./play-list.html">Play</a>
 </li><li><a href="./player-list.html">Player</a>
 </li><li><a href="./question-list.html">Question</a>
-</li><li><a href="./question_category-list.html">Question Category</a>
 </li><li><a href="./question_play-list.html">Question Play</a>
 </li><li><a href="./source-list.html">Source</a>
 </li><li><a href="./status-list.html">Status</a>
@@ -83,8 +81,8 @@
   </form>
   <div data-include=""></div>
   <script>
-    var query = {"select":["*","game(name)","game_category(category)","play(play)"]}
-    var deflt = {"name":"''","designer":"''","description":"''","excluded_by":"''"}
+    var query = {"select":["*","game(name)","game_category(categories)","play(play)"]}
+    var deflt = {"name":"''","designer":"''","description":"''","excluded_by":"'Not implemented yet'"}
   </script>
   <script src="./js/iziToast.min.js" type="text/javascript"></script>
   <script src="./ckeditor/ckeditor.js" defer=""></script>

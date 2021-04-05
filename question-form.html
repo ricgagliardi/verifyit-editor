@@ -15,7 +15,6 @@
     <div>
       <label for="drawer-control" class="drawer-close"></label>
       <ul> <li><a href="./author-list.html">Author</a>
-</li><li><a href="./category-list.html">Category</a>
 </li><li><a href="./designer-list.html">Designer</a>
 </li><li><a href="./editor-list.html">Editor</a>
 </li><li><a href="./game-list.html">Game</a>
@@ -23,7 +22,6 @@
 </li><li><a href="./play-list.html">Play</a>
 </li><li><a href="./player-list.html">Player</a>
 </li><li><a href="./question-list.html">Question</a>
-</li><li><a href="./question_category-list.html">Question Category</a>
 </li><li><a href="./question_play-list.html">Question Play</a>
 </li><li><a href="./source-list.html">Source</a>
 </li><li><a href="./status-list.html">Status</a>
@@ -75,16 +73,13 @@
       </select>
       <a data-nav-parent="" href="#" class="button">↪</a>
     </div>
+  </div><div data-type="text-fld">
+    <label for="categories">Categories</label><br>
+    <input id="categories" type="text" value="" name="categories">
   </div></fieldset></div>
     <div data-section="children">
       
-    <fieldset data-child="question_category" data-ref="category:category.name"><legend>Category</legend>
-        <ul>
-          <li data-row=""></li>
-        </ul>
-        <a href="./question_category-form.html#_new" data-addrow="title:question_category.question" class="button" style="float:right">New Question Category</a>
-      
-</fieldset><fieldset data-child="question_play" data-ref="play:play.play"><legend>Play</legend>
+    <fieldset data-child="question_play" data-ref="play:play.play"><legend>Play</legend>
         <ul>
           <li data-row=""></li>
         </ul>
@@ -106,8 +101,8 @@
   }
 </script>
   <script>
-    var query = {"select":["*","question_category(category)","question_play(play)"]}
-    var deflt = {"title":"''","created":"today()","question_content":"''","followup":"''","choices":"''","correct_choice":"''","hints":"''","private_comments":"''","author":"''","status":"''"}
+    var query = {"select":["*","question_play(play)"]}
+    var deflt = {"title":"''","created":"today()","question_content":"''","followup":"''","choices":"''","correct_choice":"''","hints":"''","private_comments":"''","author":"''","status":"''","categories":"''"}
   </script>
   <script src="./js/iziToast.min.js" type="text/javascript"></script>
   <script src="./ckeditor/ckeditor.js" defer=""></script>

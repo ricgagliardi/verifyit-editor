@@ -98,7 +98,8 @@
           title: grabNodes('Title')[0].innerText,
           author: grabNodes('Author/Date')[0].innerText.split(/\s*;\s*/)[0],
           date: grabNodes('Author/Date')[0].innerText.split(/\s*;\s*/)[1],
-          category: grabNodes('Category')[0].innerText, //.split(/\s*;\s*/),
+          // category: grabNodes('Category')[0].innerText, //.split(/\s*;\s*/),
+          categories: grabNodes('Categories')[0].innerText.split(/\s*;\s*/),
           answer: Number(grabNodes('Correct Answer')[0].innerText),
           question: grabNodes('Question Content').map( n => n.outerHTML),
           choices: Array.from(grabNodes('Choices')[0].children).map( (node, idx) => {
@@ -115,7 +116,8 @@
         log('Title:          ', rep.title)
         log('Author:         ', rep.author)
         log('Date:           ', rep.date)
-        log('Category:       ', rep.category)
+        // log('Category:       ', rep.category)
+        log('Categories:     ', rep.categories.join(', '))
         log('Question paras: ', rep.question.length)
         log('No. choices     ', rep.choices.length)
         // rep.choices.forEach( c => log(`  ${c}`) )
@@ -241,31 +243,31 @@
       }
 
       async function saveQuestion(evt) {
-        // async function saveCategoryQuestion() {
-        //   let children = rep.categories.map( c => ({question: rep.title, category: c}) )
+        async function saveCategoryQuestion() {
+          let children = rep.categories.map( c => ({question: rep.title, category: c}) )
 
-        //   const resp = await fetch(`https://${dbId}.supabase.co/rest/v1/category_question`, {
-        //     method: 'POST',
-        //     cache: 'no-cache',
-        //     headers: {
-        //       apikey: anonKey,
-        //       Authorization: `Bearer ${localStorage.access_token || anonKey}`,
-        //       'Content-Type': 'application/json',
-        //       Prefer: 'resolution=merge-duplicates'
-        //     },
-        //     body: JSON.stringify(children)
-        //   })
+          const resp = await fetch(`https://${dbId}.supabase.co/rest/v1/category_question`, {
+            method: 'POST',
+            cache: 'no-cache',
+            headers: {
+              apikey: anonKey,
+              Authorization: `Bearer ${localStorage.access_token || anonKey}`,
+              'Content-Type': 'application/json',
+              Prefer: 'resolution=merge-duplicates'
+            },
+            body: JSON.stringify(children)
+          })
 
-        //   let msg = await resp.text()
-        //   if (!resp.ok) {
-        //     if (resp.status && resp.status == 404) alert('Could not find record to update. You may not be authorized.')
-        //     else if (resp.status && resp.status == 403) alert('You are not authorized.')
-        //     else if (resp.status && resp.status == 401) alert('You are not authorized. Please request access.')
-        //     else alert(`ERROR: Request failed: ${msg}`)
-        //     return
-        //   }
-        //   alert('Categories saved.')
-        // }
+          let msg = await resp.text()
+          if (!resp.ok) {
+            if (resp.status && resp.status == 404) alert('Could not find record to update. You may not be authorized.')
+            else if (resp.status && resp.status == 403) alert('You are not authorized.')
+            else if (resp.status && resp.status == 401) alert('You are not authorized. Please request access.')
+            else alert(`ERROR: Request failed: ${msg}`)
+            return
+          }
+          alert('Categories saved.')
+        }
 
         evt.preventDefault()
         const anonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNDQ0MjY4OSwiZXhwIjoxOTMwMDE4Njg5fQ.TBULgqU-TgI1gL0iScxM0k4B1xTBnQ_q0XLpdu7qnAs'
@@ -282,7 +284,7 @@
           hints: rep.hints.join('\n'),
           private_comments: rep.comments.join('\n'),
           status: 'Proposed',
-          category: rep.category,
+          // category: rep.category,
         }
 
         document.body.style.cursor = 'wait'
@@ -310,7 +312,7 @@
           return null
         }
         alert('Question saved.')
-      //   saveCategoryQuestion()
+        saveCategoryQuestion()
       }
 
 

@@ -25,6 +25,7 @@
 </li><li><a href="./question-list.html">Question</a>
 </li><li><a href="./question_category-list.html">Question Category</a>
 </li><li><a href="./question_play-list.html">Question Play</a>
+</li><li><a href="./random_question-list.html">Random Question</a>
 </li><li><a href="./source-list.html">Source</a>
 </li><li><a href="./status-list.html">Status</a>
 </li><li><a href="./user-list.html">User</a>
@@ -59,12 +60,18 @@
         </ul>
         <a href="./question_category-form.html#_new" data-addrow="name:question_category.category" class="button" style="float:right">New Question Category</a>
       
+</fieldset><fieldset data-child="random_question"><legend>Random Question</legend>
+        <ul>
+          <li data-row=""></li>
+        </ul>
+        <a href="./random_question-form.html#_new" data-addrow="name:random_question.category" class="button" style="float:right">New Random Question</a>
+      
 </fieldset></div>
     <button type="submit" data-action="saveForm" disabled="disabled">Save changes</button>
   </form>
   <div data-include=""></div>
   <script>
-    var query = {"select":["*","game_category(game)","question_category(question)"]}
+    var query = {"select":["*","game_category(game)","question_category(question)","random_question(question)"]}
     var deflt = {"name":"''","image_location":"''","group":"''"}
   </script>
   <script src="./js/iziToast.min.js" type="text/javascript"></script>
