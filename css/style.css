@@ -20,11 +20,14 @@ a {
   color: blue;
 }
 
+input {
+  width: 100%;
+}
 div[data-type] {
   float:left;
   margin-right:20px;
 }
-div[data-type=multilne-fld] {
+div[data-type=multiline-fld] {
   min-width:33tw;
 }
 div[data-type=html-fld] {

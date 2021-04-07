@@ -99,8 +99,8 @@ async function populateForm() {
         if (node.classList.contains('populated')) return
         node.classList.add('populated')
         // console.log(node.id, row[node.id], rel, attr)
-        let rows = await request(rel, {select: attr})
-        node.innerHTML = rows.map( r => `<option>${r[attr]}</option>`)
+        let rows = await request(rel, {select: attr, order: attr})
+        node.innerHTML = rows.map( r => `<option>${r[attr]}</option>`).join('\n')
       }
     }
   })
@@ -262,11 +262,17 @@ async function saveForm(evt) {
     if (!n.name || typeof n.value != 'string' ) return // non-fields
     if (!isNew && !n.dataset.key && n.value == (row[n.name]?.toString() || '')) return // compare strings only
     
+    // console.log('old val len', n.name, n.closest('[data-type]').dataset.type, row[n.name].length)
     data[n.name] = n.value == '' ? null : n.value
-    statement[n.name] = `eq.${row[n.name]}`
+
+    // these get too big to include in 'where' clause of update. Need another way to check concurrency. Maybe digest per field?
+    const fldType = n.closest('[data-type]').dataset.type
+    if (fldType != 'html-fld'  && fldType != 'image-fld')
+      statement[n.name] = `eq.${row[n.name]}`
   })
   if (isNew) statement = null
   console.log('saveForm', rel, statement, data)
+  // return
   let rows = await request(rel, statement, data)
   console.log('after save', rows)
   if (!rows || rows.length == 0) return

@@ -90,6 +90,8 @@
     <button type="submit" data-action="saveForm" disabled="disabled">Save changes</button>
   </form>
   <script>
+  document.getElementById('title').closest('[data-type=text-fld').style.width = '60%'
+
   function _postPopulate() {
     CKEDITOR.disableAutoInline = true;
     if (Object.keys(CKEDITOR.instances) == 0)

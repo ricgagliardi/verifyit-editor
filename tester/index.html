@@ -99,7 +99,8 @@
           author: grabNodes('Author/Date')[0].innerText.split(/\s*;\s*/)[0],
           date: grabNodes('Author/Date')[0].innerText.split(/\s*;\s*/)[1],
           // category: grabNodes('Category')[0].innerText, //.split(/\s*;\s*/),
-          categories: grabNodes('Categories')[0].innerText.split(/\s*;\s*/),
+          // categories: grabNodes('Categories')[0].innerText.split(/\s*;\s*/),
+          categories: grabNodes('Categories') ? grabNodes('Categories')[0].innerText : grabNodes('Category')[0].innerText,
           answer: Number(grabNodes('Correct Answer')[0].innerText),
           question: grabNodes('Question Content').map( n => n.outerHTML),
           choices: Array.from(grabNodes('Choices')[0].children).map( (node, idx) => {
@@ -117,7 +118,7 @@
         log('Author:         ', rep.author)
         log('Date:           ', rep.date)
         // log('Category:       ', rep.category)
-        log('Categories:     ', rep.categories.join(', '))
+        log('Categories:     ', rep.categories)
         log('Question paras: ', rep.question.length)
         log('No. choices     ', rep.choices.length)
         // rep.choices.forEach( c => log(`  ${c}`) )
@@ -284,6 +285,7 @@
           hints: rep.hints.join('\n'),
           private_comments: rep.comments.join('\n'),
           status: 'Proposed',
+          categories: rep.categories
           // category: rep.category,
         }
 
