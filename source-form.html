@@ -50,17 +50,26 @@
     <button type="submit" data-action="saveForm" disabled="disabled">Save changes</button>
   </form>
   <script>
+  // function _postPopulate() {
+  //   // function handleFormChange(evt) {
+  //   //   // console.log('handleFormChange', evt instanceof Event, evt)
+  //   //   if (evt instanceof Event) evt.preventDefault()
+  //   //   let btn = document.querySelector('button[data-action=saveForm]')
+  //   //   btn.disabled = false
+  //   // }
+  //     Array.from(document.querySelectorAll('div[data-type=html-fld] label'))
+  //   .forEach( n => CKEDITOR.inline(n.getAttribute('for')).on('change', handleFormChange) )
+  // }
   function _postPopulate() {
-    // function handleFormChange(evt) {
-    //   // console.log('handleFormChange', evt instanceof Event, evt)
-    //   if (evt instanceof Event) evt.preventDefault()
-    //   let btn = document.querySelector('button[data-action=saveForm]')
-    //   btn.disabled = false
-    // }
+    CKEDITOR.disableAutoInline = true;
+    if (Object.keys(CKEDITOR.instances) == 0)
       Array.from(document.querySelectorAll('div[data-type=html-fld] label'))
-    .forEach( n => CKEDITOR.inline(n.getAttribute('for')).on('change', handleFormChange) )
+        .forEach( n => CKEDITOR.inline(n.getAttribute('for')).on('change', handleFormChange) )
   }
   
+  function _preSave() {
+    Object.keys(CKEDITOR.instances).forEach( n => CKEDITOR.instances[n].updateElement() )
+  }
 </script>
   <script>
     var query = {"select":["*"]}
