@@ -200,7 +200,8 @@ async function populateList() {
       .map( n => encodeURIComponent(n.dataset.name) + '=' + encodeURIComponent(n.textContent) )
 
     // console.log('key', rel, key)
-    location.assign(`./${rel}-form.html?#${key.join('&')}`)
+    // location.assign(`./${rel}-form.html?#${key.join('&')}`)
+    window.open(`./${rel}-form.html?#${key.join('&')}`, '_blank')
   }
 
   document.querySelector('table.data-result tbody').oncontextmenu = async evt => {
