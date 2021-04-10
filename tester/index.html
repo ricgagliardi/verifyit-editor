@@ -97,7 +97,7 @@
         rep = {
           title: grabNodes('Title')[0].innerText,
           author: grabNodes('Author/Date')[0].innerText.split(/\s*;\s*/)[0],
-          date: grabNodes('Author/Date')[0].innerText.split(/\s*;\s*/)[1],
+          date: grabNodes('Author/Date')[0].innerText.split(/\s*;\s*/)[1].trim(),
           // category: grabNodes('Category')[0].innerText, //.split(/\s*;\s*/),
           // categories: grabNodes('Categories')[0].innerText.split(/\s*;\s*/),
           categories: grabNodes('Categories') ? grabNodes('Categories')[0].innerText : grabNodes('Category')[0].innerText,
