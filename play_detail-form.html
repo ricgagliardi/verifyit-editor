@@ -3,7 +3,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
    
-  <title>Question Play Form</title>
+  <title>Play Detail Form</title>
   <link href="./css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -34,29 +34,43 @@
 
   <form>
     <div data-section="form-content"><fieldset data-type="fieldset">
-    <legend>Question Play</legend>
-  <div data-type="fkey-fld" data-parent="question.title">
-    <label for="question">Question</label><br>
-    <div class="button-group">
-
-      <select id="question" name="question" value="" style="width:100%" data-key="true">
-      </select>
-      <a data-nav-parent="" href="#" class="button">↪</a>
-    </div>
-  </div><div data-type="fkey-fld" data-parent="play.play">
+    <legend>Play Detail</legend>
+  <div data-type="integer-fld">
     <label for="play">Play</label><br>
-    <div class="button-group">
-
-      <select id="play" name="play" value="" style="width:100%" data-key="true">
-      </select>
-      <a data-nav-parent="" href="#" class="button">↪</a>
-    </div>
+    <input id="play" type="number" step="1" value="" name="play" data-key="true">
+  </div><div data-type="text-fld">
+    <label for="title">Title</label><br>
+    <input id="title" type="text" value="" name="title" data-key="true">
+  </div><div data-type="text-fld">
+    <label for="question_content">Question Content</label><br>
+    <input id="question_content" type="text" value="" name="question_content">
+  </div><div data-type="text-fld">
+    <label for="followup">Followup</label><br>
+    <input id="followup" type="text" value="" name="followup">
+  </div><div data-type="text-fld">
+    <label for="choices">Choices</label><br>
+    <input id="choices" type="text" value="" name="choices">
+  </div><div data-type="integer-fld">
+    <label for="correct_choice">Correct Choice</label><br>
+    <input id="correct_choice" type="number" step="1" value="" name="correct_choice">
+  </div><div data-type="text-fld">
+    <label for="hints">Hints</label><br>
+    <input id="hints" type="text" value="" name="hints">
   </div><div data-type="text-fld">
     <label for="categories">Categories</label><br>
     <input id="categories" type="text" value="" name="categories">
-  </div><div data-type="integer-fld">
-    <label for="sequence">Sequence</label><br>
-    <input id="sequence" type="number" step="1" value="" name="sequence">
+  </div><div data-type="text-fld">
+    <label for="bug_path_name">Bug Path Name</label><br>
+    <input id="bug_path_name" type="text" value="" name="bug_path_name">
+  </div><div data-type="text-fld">
+    <label for="text_color">Text Color</label><br>
+    <input id="text_color" type="text" value="" name="text_color">
+  </div><div data-type="text-fld">
+    <label for="background_color">Background Color</label><br>
+    <input id="background_color" type="text" value="" name="background_color">
+  </div><div data-type="text-fld">
+    <label for="class">Class</label><br>
+    <input id="class" type="text" value="" name="class">
   </div></fieldset></div>
     <div data-section="children">
       
@@ -66,7 +80,7 @@
   <div data-include=""></div>
   <script>
     var query = {"select":["*"]}
-    var deflt = {"question":"''","play":"''","categories":"''","sequence":"''"}
+    var deflt = {"play":"''","title":"''","question_content":"''","followup":"''","choices":"''","correct_choice":"''","hints":"''","categories":"''","bug_path_name":"''","text_color":"''","background_color":"''","class":"''"}
   </script>
   <script src="./js/iziToast.min.js" type="text/javascript"></script>
   <script src="./ckeditor/ckeditor.js" defer=""></script>
