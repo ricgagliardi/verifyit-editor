@@ -84,7 +84,7 @@
           })
           if (result.length < 2) {
             warn('Could not parse', name)
-            return null
+            return []
           }
           return result.slice(1)
         }
@@ -95,23 +95,22 @@
         Array.from(content.querySelectorAll('a')).forEach( a => a.target = '_blank' )
 
         rep = {
-          title: grabNodes('Title')[0].innerText,
-          author: grabNodes('Author/Date')[0].innerText.split(/\s*;\s*/)[0],
+          title: grabNodes('Title')[0].innerText.trim(),
+          author: grabNodes('Author/Date')[0].innerText.replaceAll('’', "'").split(/\s*;\s*/)[0].trim(),
           date: grabNodes('Author/Date')[0].innerText.split(/\s*;\s*/)[1].trim(),
           // category: grabNodes('Category')[0].innerText, //.split(/\s*;\s*/),
           // categories: grabNodes('Categories')[0].innerText.split(/\s*;\s*/),
-          categories: grabNodes('Categories') ? grabNodes('Categories')[0].innerText : grabNodes('Category')[0].innerText,
-          answer: Number(grabNodes('Correct Answer')[0].innerText),
+          categories: grabNodes('Categories') ? grabNodes('Categories')[0].innerText.trim() : grabNodes('Category')[0].innerText.trim(),
+          answer: Number(grabNodes('Correct Answer')[0].innerText.trim()),
           question: grabNodes('Question Content').map( n => n.outerHTML),
-          choices: Array.from(grabNodes('Choices')[0].children).map( (node, idx) => {
+          choices: grabNodes('Choices').filter(n => n.nodeName == 'OL').length ? Array.from(grabNodes('Choices').filter(n => n.nodeName == 'OL')[0].children).map( (node, idx) => {
             let label = node.innerHTML
             return `\n<button data-no="${idx+1}" class="choice">${label}</button>`
-          }),
+          }) : '??',
           followup: grabNodes('Followup').map( n => n.outerHTML),
-          hints: Array.from(grabNodes('Hints')[0].children).map( n => n.innerHTML ),
+          hints: grabNodes('Hints').filter(n => n.nodeName == 'OL').length ? Array.from(grabNodes('Hints').filter(n => n.nodeName == 'OL')[0].children).map( n => n.innerHTML ) : '??',
           comments: grabNodes('Private Comments').map( n => n.outerHTML),
         }
-        
         log() // clears output
         warn()
         log('Title:          ', rep.title)
@@ -129,6 +128,7 @@
 
         if (rep.choices.length < 2) warn('Question must have a least 2 choices, prefer 3 or 4.')
         if (!rep.date || rep.date.length < 8) warn('Could not parse Date. Missing semicolon?')
+        if (isNaN(rep.answer)) warn('Could not parse Correct Answer. Is it a number?')
 
         rep.question = await prepImages(rep.question)
         rep.followup = await prepImages(rep.followup)
