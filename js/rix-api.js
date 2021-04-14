@@ -74,7 +74,7 @@ async function populateForm() {
     row = {}
     Object.keys(deflt).forEach( fn => {
       console.log('deflt', fn, deflt[fn], key[fn])
-      row[fn] = key[fn] ? key[fn].split('.')[1] : (new Function('', `return ${deflt[fn]}`)).call(row)
+      row[fn] = key[fn] ? key[fn].slice(key[fn].indexOf('.')+1) : (new Function('', `return ${deflt[fn]}`)).call(row)
     })
     document.querySelector('button[data-action=saveForm]').disabled = false
   }
@@ -114,7 +114,9 @@ function populateChildren() {
     if (row[rn] instanceof Array) {
       let btnAdd = document.querySelector(`fieldset[data-child=${rn}] a[data-addrow]`)
       let [parentFn, _, childFn] = btnAdd.dataset['addrow'].split(/:|\./)
-      let key = getParams().key[parentFn].split('.')[1] //remove the eq. prefix
+      let x = getParams().key[parentFn]
+      let key = x.slice(x.indexOf('.')+1) // remove eq. prefix
+      // let key = getParams().key[parentFn].split('.')[1] //remove the eq. prefix
       btnAdd.href += `&${childFn}=${key}`
 
       if (row[rn].length == 0) return
