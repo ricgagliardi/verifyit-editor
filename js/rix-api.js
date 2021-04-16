@@ -66,7 +66,17 @@ async function populateForm() {
     console.log('rows', rows)
     if (rows.length == 1) return rows[0]
     if (rows.length == 0) alert('No rows returned. Probably a new record. Not yet implemented.')
-    else alert('query returned more than 1 row. Only 1 is expected.')
+    else {
+      // alert('query returned more than 1 row. Only 1 is expected.')
+      iziToast.show({
+        title: 'Warning', 
+        message: 'Only 1 row expected. Redirecting to list.',
+        position: 'topCenter',
+        backgroundColor: 'yellow'
+      })
+      let newpath = location.pathname.replace('-form', '-list') + location.hash
+      setTimeout( () => location.assign(newpath) , 1000)
+    }
     return []
   }
   const {rel, _, key, isNew} = getParams()
