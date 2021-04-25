@@ -24,6 +24,7 @@
 </li><li><a href="./player-list.html">Player</a>
 </li><li><a href="./question-list.html">Question</a>
 </li><li><a href="./question_play-list.html">Question Play</a>
+</li><li><a href="./random_question-list.html">Random Question</a>
 </li><li><a href="./source-list.html">Source</a>
 </li><li><a href="./status-list.html">Status</a>
 </li><li><a href="./user-list.html">User</a>
@@ -95,7 +96,7 @@
   document.getElementById('title').closest('[data-type=text-fld').style.width = '60%'
   
   function _postPopulate() {
-    document.getElementById('btn-open-game').setAttribute('href', `https://test.verifyit.buzz/multiplayer#question=${document.getElementById('title').value}`)
+    document.getElementById('btn-open-game').setAttribute('href', `https://test.verifyit.buzz/game#question=${document.getElementById('title').value}`)
     CKEDITOR.disableAutoInline = true;
     if (Object.keys(CKEDITOR.instances) == 0)
       Array.from(document.querySelectorAll('div[data-type=html-fld] label'))
