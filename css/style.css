@@ -39,9 +39,20 @@ legend {
   font-weight: bold;
   font-size: 120%
 }
+
 label {
   font-size: 120%;
   font-style: italic;
+}
+
+cite {
+  /* margin-top: -20px; */
+  font-size: .75rem;
+  float:right;
+}
+
+div[data-type] > label {
+  color: darkmagenta;
 }
 
 div[text-fld] input[type=text] {
