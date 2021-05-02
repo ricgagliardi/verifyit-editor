@@ -96,7 +96,7 @@
   document.getElementById('title').closest('[data-type=text-fld').style.width = '60%'
   
   function _postPopulate() {
-    document.getElementById('btn-open-game').setAttribute('href', `https://test.verifyit.buzz/game#question=${document.getElementById('title').value}`)
+    document.getElementById('btn-open-game').setAttribute('href', `https://verifyit.buzz/game#question=${document.getElementById('title').value}`)
     CKEDITOR.disableAutoInline = true;
     if (Object.keys(CKEDITOR.instances) == 0)
       Array.from(document.querySelectorAll('div[data-type=html-fld] label'))
