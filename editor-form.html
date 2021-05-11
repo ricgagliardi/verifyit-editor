@@ -1,0 +1,62 @@
+<html><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+   
+  <title>Editor Form</title>
+  <link href="./css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <div style="padding:1rem">
+    <div data-user-name="" style="display:inline-block"></div>
+    <label for="drawer-control" class="logo" style="float:right;">VerifyIT</label>
+    
+    <input type="checkbox" id="drawer-control" class="drawer persistent">
+    <div>
+      <label for="drawer-control" class="drawer-close"></label>
+      <ul> <li><a href="./author-list.html">Author</a>
+</li><li><a href="./designer-list.html">Designer</a>
+</li><li><a href="./editor-list.html">Editor</a>
+</li><li><a href="./game-list.html">Game</a>
+</li><li><a href="./game_category-list.html">Game Category</a>
+</li><li><a href="./play-list.html">Play</a>
+</li><li><a href="./play_detail-list.html">Play Detail</a>
+</li><li><a href="./player-list.html">Player</a>
+</li><li><a href="./question-list.html">Question</a>
+</li><li><a href="./question_play-list.html">Question Play</a>
+</li><li><a href="./random_question-list.html">Random Question</a>
+</li><li><a href="./source-list.html">Source</a>
+</li><li><a href="./status-list.html">Status</a>
+</li><li><a href="./user-list.html">User</a>
+</li></ul>
+    </div>
+  
+
+  <form>
+    <div data-section="form-content"><fieldset data-type="fieldset">
+    <legend>Editor</legend>
+  <div data-type="fkey-fld" data-parent="user.name">
+    <label for="name">Name</label><br>
+    <div class="button-group">
+
+      <select id="name" name="name" value="" style="width:100%" data-key="true">
+      </select>
+      <a data-nav-parent="" href="#" class="button">↪</a>
+    </div>
+  </div></fieldset></div>
+    <div data-section="children">
+      
+    </div>
+    <button type="submit" data-action="saveForm" disabled="disabled">Save changes</button>
+  </form>
+  <div data-include=""></div>
+  <script>
+    var query = {"select":["*"]}
+    var deflt = {"name":"''"}
+  </script>
+  <script src="./js/iziToast.min.js" type="text/javascript"></script>
+  <script src="./ckeditor/ckeditor.js" defer=""></script>
+  <script src="./js/rix-api.js" defer=""></script>
+
+
+</div></body></html>

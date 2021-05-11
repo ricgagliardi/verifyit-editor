@@ -5,7 +5,7 @@ function titleize(n) {
 function today() {
   return (new Date()).toISOString().slice(0,10)
 }
-
+ 
 async function request(relName, query, data) {
   const anonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNDQ0MjY4OSwiZXhwIjoxOTMwMDE4Njg5fQ.TBULgqU-TgI1gL0iScxM0k4B1xTBnQ_q0XLpdu7qnAs'
   const dbId = 'cqxvknmoofzuhxbonmoj'
