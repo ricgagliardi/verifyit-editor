@@ -90,7 +90,23 @@
 </fieldset></div>
     <button type="submit" data-action="saveForm" disabled="disabled">Save changes</button>
   </form>
-  <div data-include=""></div>
+  <a id="btn-open-game" href="#" target="_blank" class="primary button" style="float:right">Open in Game</a>
+
+<script>
+  document.getElementById('title').closest('[data-type=text-fld').style.width = '60%'
+  
+  function _postPopulate() {
+    document.getElementById('btn-open-game').setAttribute('href', `https://verifyit.buzz/game#question=${document.getElementById('title').value}`)
+    CKEDITOR.disableAutoInline = true;
+    if (Object.keys(CKEDITOR.instances) == 0)
+      Array.from(document.querySelectorAll('div[data-type=html-fld] label'))
+        .forEach( n => CKEDITOR.inline(n.getAttribute('for')).on('change', handleFormChange) )
+  }
+  
+  function _preSave() {
+    Object.keys(CKEDITOR.instances).forEach( n => CKEDITOR.instances[n].updateElement() )
+  }
+</script>
   <script>
     var query = {"select":["*","question_play(play)"]}
     var deflt = {"title":"''","created":"today()","question_content":"''","followup":"''","choices":"''","correct_choice":"''","hints":"''","private_comments":"''","author":"''","status":"''","categories":"''"}
