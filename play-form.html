@@ -49,6 +49,12 @@
   </div><div data-type="integer-fld">
     <label for="play_code">Play Code</label><br>
     <input id="play_code" type="number" step="1" value="" name="play_code">
+  </div><div data-type="text-fld">
+    <label for="when">When</label><br>
+    <input id="when" type="text" value="" name="when">
+  </div><div data-type="text-fld">
+    <label for="location">Location</label><br>
+    <input id="location" type="text" value="" name="location">
   </div></fieldset></div>
     <div data-section="children">
       
@@ -70,7 +76,7 @@
   <div data-include=""></div>
   <script>
     var query = {"select":["*","player(player)","question_play(question)"]}
-    var deflt = {"play":"''","game":"''","play_code":"''"}
+    var deflt = {"play":"''","game":"''","play_code":"''","when":"''","location":"''"}
   </script>
   <script src="./js/iziToast.min.js" type="text/javascript"></script>
   <script src="./ckeditor/ckeditor.js" defer=""></script>
