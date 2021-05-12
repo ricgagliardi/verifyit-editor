@@ -181,6 +181,15 @@ async function populateList() {
   async function runQuery() {
     let curQuery = {...query, ...key, ...filter}
     let rows = await request(rel, curQuery)
+    if (rows.length == 0) {
+      iziToast.show({
+        title: 'Query', 
+        message: 'No matching rows.',
+        position: 'topCenter',
+        backgroundColor: 'yellow'
+      })
+      return
+    }
     let dataRow = document.querySelector('tr[data-row]')
     let parent = dataRow.parentElement
     parent.removeChild(dataRow)
@@ -199,8 +208,8 @@ async function populateList() {
 
   document.querySelectorAll('td.search-col input').forEach( node => node.oninput = evt => {
     evt.preventDefault()
-    // console.log('updateSearch', evt.target.name, evt.target.value)
-    filter[evt.target.name] = `ilike.*${evt.target.value}*`
+    filter[evt.target.name] = `ilike.*${evt.target.value.replaceAll(' ', '*')}*`
+    console.log('updateSearch', evt.target.name, evt.target.value, filter[evt.target.name])
     runQuery()
   })
 
