@@ -285,7 +285,7 @@ async function saveForm(evt) {
     if (!isNew && !n.dataset.key && n.value == (row[n.name]?.toString() || '')) return // compare strings only
     
     // console.log('old val len', n.name, n.closest('[data-type]').dataset.type, row[n.name].length)
-    data[n.name] = n.value == '' ? null : n.value
+    data[n.name] = n.value == '' ? null : n.value.trim()
 
     // these get too big to include in 'where' clause of update. Need another way to check concurrency. Maybe digest per field?
     const fldType = n.closest('[data-type]').dataset.type
