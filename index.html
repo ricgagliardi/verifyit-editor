@@ -7,6 +7,7 @@
    <!-- <link rel="shortcut icon" href="/retail/images/favicon.ico"> -->
   <title>authentication</title>
   <link href="./css/style.css" rel="stylesheet" type="text/css">
+  <script src="./js/iziToast.min.js" type="text/javascript"></script>
 </head>
 <body>
 <form hidden>
@@ -66,7 +67,17 @@
     t.setSeconds(t.getSeconds() + Number(params.expires_in))
     localStorage.expires = t.toISOString()
     localStorage.name = payload.user_metadata.name
+    localStorage.profile = JSON.stringify(payload.user_metadata)
     setTimeout(() => location.assign('./question-list.html'), 500)
+  }
+  else if (!!localStorage.access_token && !!localStorage.expires && new Date(localStorage.expires) > new Date()) {
+    iziToast.show({
+      title: 'You are already logged in.', 
+      message: 'Redirecting to Question List.',
+      position: 'topCenter',
+      backgroundColor: 'lightgreen'
+    })
+    setTimeout(() => location.assign('./question-list.html'), 2000)
   }
   else {
     document.forms[0].hidden = false
@@ -94,6 +105,5 @@
 
 
 </script>
-<script src="./js/iziToast.min.js" type="text/javascript"></script>
 </body>
 </html>
