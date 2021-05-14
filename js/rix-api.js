@@ -75,7 +75,7 @@ async function populateForm() {
         backgroundColor: 'yellow'
       })
       let newpath = location.pathname.replace('-form', '-list') + location.hash
-      setTimeout( () => location.assign(newpath) , 1000)
+      setTimeout( () => location.assign(newpath) , 2000)
     }
     return []
   }
@@ -138,13 +138,13 @@ function populateChildren() {
         if (ref) {
           let [_, fn, parentRel, parentFn] = ref.dataset.ref.match(/(\w+):(\w+)\.(\w+)/)
           // console.log('    ref', fn, parentRel, parentFn)
-          let target = `${parentFn}=${subrow[fn]}`
+          let target = `${parentFn}=${subrow[fn]}&${childFn}=${key}`
           // console.log('    subrow', subrow, target)
           a = `<a href="./${parentRel}-form.html#${target}">${subrow[fn]}</a>`
           // console.log('    a', a)
         }
         else {
-          let target = Object.keys(subrow).map( k => `${k}=${subrow[k]}`).join('&')
+          let target = Object.keys(subrow).map( k => `${k}=${subrow[k]}`).join('&') + `&${childFn}=${key}`
           // console.log('    subrow', subrow, target)
           a = `<a href="./${rn}-form.html#${target}">${Object.values(subrow).join('; ')}</a>`
           // console.log('    a', a)
@@ -289,8 +289,11 @@ async function saveForm(evt) {
 
     // these get too big to include in 'where' clause of update. Need another way to check concurrency. Maybe digest per field?
     const fldType = n.closest('[data-type]').dataset.type
-    if (fldType != 'html-fld'  && fldType != 'image-fld')
-      statement[n.name] = `eq.${row[n.name]}`
+    if (fldType != 'html-fld'  && fldType != 'image-fld') {
+      const val = row[n.name]
+      const op = ['string', 'number'].includes(typeof val) ? 'eq' : 'is'
+      statement[n.name] = `${op}.${row[n.name]}`
+    }
   })
   if (isNew) statement = null
   console.log('saveForm', rel, statement, data)
