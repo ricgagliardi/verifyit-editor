@@ -21,6 +21,7 @@
 </li><li><a href="./game_category-list.html">Game Category</a>
 </li><li><a href="./play-list.html">Play</a>
 </li><li><a href="./play_detail-list.html">Play Detail</a>
+</li><li><a href="./play_statistics-list.html">Play Statistics</a>
 </li><li><a href="./player-list.html">Player</a>
 </li><li><a href="./question-list.html">Question</a>
 </li><li><a href="./question_play-list.html">Question Play</a>
@@ -90,7 +91,31 @@
 </fieldset></div>
     <button type="submit" data-action="saveForm" disabled="disabled">Save changes</button>
   </form>
-  <a id="btn-open-game" href="#" target="_blank" class="primary button" style="float:right">Open in Game</a>
+  <style>
+  html, * {
+    font-family: Quicksand, arial, sans, sans-serif;
+  }
+
+  .cke_contents_ltr p {
+    /* font-size: max(1.2rem, 1.5vw); */
+    margin: 0;
+    padding: 0;
+    font-size: 3.0vh;
+  }
+
+  .cke_contents_ltr p cite {
+    margin-top: -20px;
+    font-size: .75rem;
+    float:right;
+  }
+
+  .cke_contents_ltr p h3 {font-size: 3.3vh;}
+  .cke_contents_ltr p h2 {font-size: 3.6vh;}
+  .cke_contents_ltr p h1 {font-size: 4.0vh;}
+
+</style>
+
+<a id="btn-open-game" href="#" target="_blank" class="primary button" style="float:right">Open in Game</a>
 
 <script>
   document.getElementById('title').closest('[data-type=text-fld').style.width = '60%'
