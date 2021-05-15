@@ -82,23 +82,8 @@ table.data-result td.search-col {
   width:100%;
   padding: 0;
 }
-/* .cke_contents_ltr */
-.cke_contents_ltr p {
-  /* min-width:90tw; */
+
+div[data-type=html-fld] {
   width: 100%;
-  font-family: Quicksand, arial, sans, sans-serif;
-  /* font-size: max(1.2rem, 1.5vw); */
-  margin: 0;
-  padding: 0;
-  font-size: 3.0vh;
+  min-height: 8vh;
 }
-
-.cke_contents_ltr p cite {
-  margin-top: -20px;
-  font-size: .75rem;
-  float:right;
-}
-
-.cke_contents_ltr p h3 {font-size: 3.3vh;}
-.cke_contents_ltr p h2 {font-size: 3.6vh;}
-.cke_contents_ltr p h1 {font-size: 4.0vh;}
